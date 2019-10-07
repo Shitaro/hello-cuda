@@ -5,17 +5,7 @@
 #include <iostream>
 #include <random>
 
-/* device function */
-/* device function processed by NVIDIA compiler */
-__global__ // Runs on the device, called from host code
-void add(int* a, int* b, int* c) {
-    /* a, b, and c must point to device memory */
-    /* blockIdx.x: to access block index */
-    /* threadIdx.x: to access thread index */
-    /* blockDim.x: threads per block */
-    const int index = threadIdx.x + blockIdx.x * blockDim.x;
-    c[index] = a[index] + b[index];
-}
+#include <mycuda/add_vector/add_vector.cu>
 
 void random_ints(int* a, int N) {
     std::mt19937 mt{ std::random_device{}() };
@@ -54,7 +44,7 @@ int main(void) {
 
     /* launch add() kernel on GPU with N threads */
     /* thread: block can be split into parallel threads */
-    add<<<N/THREADS_PER_BLOCK,THREADS_PER_BLOCK>>>(d_a, d_b, d_c); // kernel launch: triple angle bracets mark a call from host code to device code
+    mycuda::add_vector<<<N/THREADS_PER_BLOCK,THREADS_PER_BLOCK>>>(d_a, d_b, d_c); // kernel launch: triple angle bracets mark a call from host code to device code
 
     /* copy result back to host */
     cudaMemcpy(c, d_c, size, cudaMemcpyDeviceToHost);
