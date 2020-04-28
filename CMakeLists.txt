@@ -1,22 +1,16 @@
-cmake_minimum_required(VERSION 3.11)
+cmake_minimum_required(VERSION 3.11...3.15)
 
 set(CMAKE_CXX_STANDARD 17)
 
-project(constexpr_linalg)
+project(hello_cuda
+    LANGUAGES CXX
+)
 
-list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/external)
+list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
-enable_testing()
 include(googletest)
+include(cuda)
+include(eigen)
 
-include(CheckLanguage)
-check_language(CUDA)
-if(CMAKE_CUDA_COMPILER)
-    enable_language(CUDA)
-else()
-    message(STATUS "No CUDA support")
-endif()
-
-add_subdirectory(include)
-add_subdirectory(example)
+add_subdirectory(app)
 add_subdirectory(test)

@@ -1,0 +1,18 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceRoot}/**",
+                "${workspaceRoot}/include",
+                "/opt/cuda/include",
+                "${workspaceRoot}/build/_deps/googletest-src/googletest/include",
+                "${workspaceRoot}/build/_deps/googletest-src/googlemock/include"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/clang",
+            "intelliSenseMode": "clang-x64"
+        }
+    ],
+    "version": 4
+}
