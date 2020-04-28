@@ -1,0 +1,15 @@
+include(CheckLanguage)
+
+check_language(CUDA)
+if(CMAKE_CUDA_COMPILER)
+    message(STATUS "CUDA is supported")
+    enable_language(CUDA)
+else()
+    message(STATUS "No CUDA support")
+endif()
+
+if(NOT DEFINED CMAKE_CUDA_STANDARD)
+    set(CMAKE_CUDA_STANDARD 14)
+    set(CMAKE_CUDA_STANDARD_REQUIRED ON)
+    message(STATUS "Set CUDA standard")
+endif()
